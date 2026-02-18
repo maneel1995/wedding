@@ -109,6 +109,42 @@ nav.scrolled { padding: 10px 0; box-shadow: 0 2px 20px rgba(122, 31, 61, 0.1); }
   100% { opacity: 0; transform: translateY(-10vh) scale(1); }
 }
 
+/* Let's Begin Button */
+.lets-begin-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  padding: 20px 60px;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  color: var(--maroon-deep);
+  background: linear-gradient(135deg, var(--gold-light), var(--gold));
+  border: 2px solid var(--gold-dark);
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 10px 40px rgba(201, 168, 76, 0.4);
+  transition: all 0.3s ease;
+  animation: buttonPulse 2s ease-in-out infinite;
+}
+.lets-begin-btn:hover {
+  transform: translate(-50%, -50%) scale(1.05);
+  box-shadow: 0 15px 50px rgba(201, 168, 76, 0.6);
+}
+.lets-begin-btn.fade-out {
+  animation: fadeOutBtn 1s ease-out forwards;
+  pointer-events: none;
+}
+@keyframes buttonPulse {
+  0%, 100% { box-shadow: 0 10px 40px rgba(201, 168, 76, 0.4); }
+  50% { box-shadow: 0 10px 60px rgba(201, 168, 76, 0.7); }
+}
+@keyframes fadeOutBtn {
+  0% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+}
+
 /* Mushika */
 .mushika-wrap {
   position: absolute;
@@ -123,6 +159,9 @@ nav.scrolled { padding: 10px 0; box-shadow: 0 2px 20px rgba(122, 31, 61, 0.1); }
 .mushika-inner {
   position: absolute; top: 0;
   left: -60px;
+  opacity: 0;
+}
+.mushika-wrap.animate .mushika-inner {
   animation: mushikaScurry 2s ease-in-out 0.2s forwards;
 }
 @keyframes mushikaScurry {
@@ -132,7 +171,9 @@ nav.scrolled { padding: 10px 0; box-shadow: 0 2px 20px rgba(122, 31, 61, 0.1); }
   82% { left: 100px; opacity: 1; }
   100% { left: 100px; opacity: 1; }
 }
-.mushika-inner svg { animation: mushikaBounce 0.2s ease-in-out 0.2s 9; }
+.mushika-wrap.animate .mushika-inner svg {
+  animation: mushikaBounce 0.2s ease-in-out 0.2s 9;
+}
 @keyframes mushikaBounce {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-5px); }
@@ -146,6 +187,8 @@ nav.scrolled { padding: 10px 0; box-shadow: 0 2px 20px rgba(122, 31, 61, 0.1); }
   transform: translate(-50%, -50%);
   z-index: 2;
   opacity: 0;
+}
+.ganpati-container.animate {
   animation: ganeshAppear 1s ease-out 2.2s forwards;
 }
 @keyframes ganeshAppear {
@@ -190,14 +233,17 @@ nav.scrolled { padding: 10px 0; box-shadow: 0 2px 20px rgba(122, 31, 61, 0.1); }
   font-weight: 400; color: var(--cream); line-height: 1.2;
   text-align: center;
 }
-.name-maneel { display: block; opacity: 0; animation: nameSlideRight 0.9s ease-out 4s forwards; }
+.name-maneel { display: block; opacity: 0; }
+.hero-names.animate .name-maneel { animation: nameSlideRight 0.9s ease-out 4s forwards; }
 .name-amp {
   font-family: 'Playfair Display', serif; font-style: italic;
   font-size: clamp(1.8rem, 5vw, 3rem); color: var(--gold);
   display: block; margin: 5px 0;
-  opacity: 0; animation: ampPop 0.5s ease-out 4.6s forwards;
+  opacity: 0;
 }
-.name-manaswini { display: block; opacity: 0; animation: nameSlideLeft 0.9s ease-out 4.8s forwards; }
+.hero-names.animate .name-amp { animation: ampPop 0.5s ease-out 4.6s forwards; }
+.name-manaswini { display: block; opacity: 0; }
+.hero-names.animate .name-manaswini { animation: nameSlideLeft 0.9s ease-out 4.8s forwards; }
 @keyframes nameSlideRight { 0% { opacity: 0; transform: translateX(-50px); } 100% { opacity: 1; transform: translateX(0); } }
 @keyframes nameSlideLeft { 0% { opacity: 0; transform: translateX(50px); } 100% { opacity: 1; transform: translateX(0); } }
 @keyframes ampPop {
@@ -214,8 +260,9 @@ nav.scrolled { padding: 10px 0; box-shadow: 0 2px 20px rgba(122, 31, 61, 0.1); }
   left: 50%;
   transform: translateX(-50%);
   z-index: 2;
-  opacity: 0; animation: textReveal 0.8s ease-out 5.8s forwards;
+  opacity: 0;
 }
+.hero-date.animate { animation: textReveal 0.8s ease-out 5.8s forwards; }
 
 .countdown {
   display: flex; align-items: center; justify-content: center;
@@ -225,8 +272,9 @@ nav.scrolled { padding: 10px 0; box-shadow: 0 2px 20px rgba(122, 31, 61, 0.1); }
   left: 50%;
   transform: translateX(-50%);
   z-index: 2;
-  opacity: 0; animation: fadeInUp 0.8s ease-out 0.5s forwards;
+  opacity: 0;
 }
+.countdown.animate { animation: fadeInUp 0.8s ease-out 0.5s forwards; }
 @keyframes fadeInUp { from { opacity: 0; transform: translate(-50%, 30px); } to { opacity: 1; transform: translate(-50%, 0); } }
 
 .countdown-item {
@@ -247,13 +295,34 @@ nav.scrolled { padding: 10px 0; box-shadow: 0 2px 20px rgba(122, 31, 61, 0.1); }
 }
 
 .scroll-indicator {
-  position: absolute; bottom: 30px; z-index: 2;
-  opacity: 0; animation: fadeInBounce 0.6s ease-out 6.8s forwards;
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  opacity: 0;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
 }
-.scroll-indicator svg { width: 30px; height: 30px; }
-@keyframes fadeInBounce { 0% { opacity: 0; } 100% { opacity: 1; } }
-.scroll-indicator.active { animation: bounce 2s infinite 7.4s; }
-@keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(10px); } }
+.scroll-indicator:hover {
+  opacity: 1 !important;
+}
+.scroll-indicator.animate {
+  animation: fadeInBounce 0.8s ease-out 6.5s forwards, bounce 2s ease-in-out 7.5s infinite;
+}
+.scroll-indicator svg {
+  width: 40px;
+  height: 40px;
+  filter: drop-shadow(0 2px 8px rgba(201, 168, 76, 0.4));
+}
+@keyframes fadeInBounce {
+  0% { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+  100% { opacity: 0.8; transform: translateX(-50%) translateY(0); }
+}
+@keyframes bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(12px); }
+}
 
 @media (max-width: 600px) {
   .countdown-item { min-width: 60px; padding: 10px 12px; }

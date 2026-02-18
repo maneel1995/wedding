@@ -58,16 +58,33 @@ function submitRSVP() {
   if (document.getElementById('evtSangeet').checked) events.push('Sangeet');
   if (document.getElementById('evtWedding').checked) events.push('Wedding');
   if (events.length === 0) { alert('Please select at least one event.'); return; }
+
   var data = {
     name: first + ' ' + last,
     email: document.getElementById('email').value.trim(),
     events: events,
     guests: document.getElementById('guestCount').value
   };
-  // TODO: Replace with your backend endpoint
-  console.log('RSVP Data:', JSON.stringify(data, null, 2));
-  document.getElementById('rsvpForm').style.display = 'none';
-  document.getElementById('rsvpSuccess').classList.add('show');
+
+  // Replace 'YOUR_GOOGLE_SCRIPT_URL' with your actual Google Apps Script Web App URL
+  var scriptURL = 'https://script.google.com/macros/s/AKfycbzV8K8I6vgwfkiqERlXC8RMTs7FzWd7XBNHkFdCUMVAt4wW79DDUQzGRhvO2B72_fg-YA/exec';
+
+  // Send data to Google Sheets
+  fetch(scriptURL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  })
+  .then(function() {
+    console.log('RSVP submitted successfully');
+    document.getElementById('rsvpForm').style.display = 'none';
+    document.getElementById('rsvpSuccess').classList.add('show');
+  })
+  .catch(function(error) {
+    console.error('Error:', error);
+    alert('There was an error submitting your RSVP. Please try again.');
+  });
 }
 
 // Smooth scroll
@@ -96,4 +113,48 @@ musicBtn.addEventListener('click', function() {
     volumeIcon.style.display = 'none';
     muteIcon.style.display = 'block';
   }
+});
+
+// Let's Begin button
+var letsBeginBtn = document.getElementById('letsBeginBtn');
+letsBeginBtn.addEventListener('click', function() {
+  // Fade out the button
+  letsBeginBtn.classList.add('fade-out');
+
+  // Start the mushika animation
+  var mushikaWrap = document.querySelector('.mushika-wrap');
+  mushikaWrap.classList.add('animate');
+
+  // Start other hero animations
+  var ganpatiContainer = document.querySelector('.ganpati-container');
+  ganpatiContainer.classList.add('animate');
+
+  var heroNames = document.querySelector('.hero-names');
+  heroNames.classList.add('animate');
+
+  var heroDate = document.querySelector('.hero-date');
+  heroDate.classList.add('animate');
+
+  var countdown = document.getElementById('countdown');
+  countdown.classList.add('animate');
+
+  var scrollIndicator = document.querySelector('.scroll-indicator');
+  scrollIndicator.classList.add('animate');
+
+  // Unmute and play music
+  music.muted = false;
+  music.play();
+  volumeIcon.style.display = 'block';
+  muteIcon.style.display = 'none';
+
+  // Remove the button after fade out completes
+  setTimeout(function() {
+    letsBeginBtn.style.display = 'none';
+  }, 1000);
+});
+
+// Scroll indicator click
+var scrollIndicator = document.querySelector('.scroll-indicator');
+scrollIndicator.addEventListener('click', function() {
+  document.getElementById('events').scrollIntoView({ behavior: 'smooth' });
 });
