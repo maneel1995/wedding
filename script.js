@@ -98,3 +98,41 @@ document.body.addEventListener('click', function() {
         music.play();
     }
 }, { once: true });
+
+// Music toggle
+var musicToggle = document.getElementById('musicToggle');
+var bgMusic = document.getElementById('bgMusic');
+var volumeIcon = musicToggle.querySelector('.volume-icon');
+var muteIcon = musicToggle.querySelector('.mute-icon');
+
+// Set initial icon state based on audio muted property
+if (bgMusic.muted) {
+    volumeIcon.style.display = 'none';
+    muteIcon.style.display = 'inline-block';
+} else {
+    volumeIcon.style.display = 'inline-block';
+    muteIcon.style.display = 'none';
+}
+
+musicToggle.addEventListener('click', function() {
+    if (bgMusic.muted) {
+        bgMusic.muted = false;
+        volumeIcon.style.display = 'inline-block';
+        muteIcon.style.display = 'none';
+    } else {
+        bgMusic.muted = true;
+        volumeIcon.style.display = 'none';
+        muteIcon.style.display = 'inline-block';
+    }
+    // Attempt to play if it was paused and now unmuted
+    if (!bgMusic.paused && !bgMusic.muted) {
+        bgMusic.play().catch(function(error) {
+            console.log("Autoplay was prevented:", error);
+        });
+    } else if (bgMusic.paused && !bgMusic.muted) {
+        // If it was paused and unmuted by user, try to play
+        bgMusic.play().catch(function(error) {
+            console.log("Autoplay was prevented:", error);
+        });
+    }
+});
