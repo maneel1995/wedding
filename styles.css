@@ -150,7 +150,7 @@ body {
    ================================= */
 .ganpati-container {
   position: relative;
-  z-index: 2;
+  z-index: 100; /* Increased to establish a clear stacking context above other elements */
   margin-bottom: 0.25rem;
   animation: ganpatiFloat 5s ease-in-out infinite;
   mix-blend-mode: multiply;
@@ -174,37 +174,29 @@ body {
    ================================= */
 .mushika-container {
   position: absolute;
-  bottom: 15%; /* Adjust as needed to position Mushika relative to Ganesha */
-  left: 0;
-  width: 100%;
+  bottom: 0px; /* Adjusted to move Mushika slightly upwards */
+  left: 10%; /* Adjusted to move Mushika a little more towards Ganesha */
+  transform: translateX(-50%); /* Keep for fine-tuning horizontal position */
+  width: 80px;
   height: auto;
-  z-index: 2;
-  overflow: hidden;
+  z-index: 5;
 }
 
 .mushika-img {
-  width: 80px; /* Adjust size as needed */
+  width: 80px;
   height: auto;
   display: block;
   position: relative;
-  animation: mushikaScurry 8s linear infinite; /* Animation duration and type */
+  z-index: 2;
+  animation: mushikaScurry 4s ease-out 1 forwards; /* Animation: 4s duration, ease-out, play once, stay at end */
 }
 
 @keyframes mushikaScurry {
   0% {
-    transform: translateX(-100%) rotateY(0deg); /* Start off-screen left */
-  }
-  49% {
-    transform: translateX(120vw) rotateY(0deg); /* Move across the screen */
-  }
-  50% {
-    transform: translateX(120vw) rotateY(180deg); /* Flip horizontally at the end */
-  }
-  99% {
-    transform: translateX(-100%) rotateY(180deg); /* Move back across the screen (flipped) */
+    transform: translateX(-100vw); /* Start completely off-screen left (viewport) */
   }
   100% {
-    transform: translateX(-100%) rotateY(0deg); /* Reset for next loop */
+    transform: translateX(0); /* Stop at the position defined by .mushika-container */
   }
 }
 
@@ -219,6 +211,9 @@ body {
 .hero-names {
   z-index: 2;
   position: relative;
+  opacity: 0; /* Hidden initially */
+  visibility: hidden; /* Hidden initially */
+  transition: opacity 1s ease-in, visibility 1s ease-in; /* Fade-in transition */
 }
 
 .hero-names h1 {
@@ -245,7 +240,9 @@ body {
   letter-spacing: 3px;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
-  opacity: 0.85;
+  opacity: 0; /* Hidden initially */
+  visibility: hidden; /* Hidden initially */
+  transition: opacity 1s ease-in 0.5s, visibility 1s ease-in 0.5s; /* Fade-in transition with delay */
 }
 
 /* =================================
@@ -257,6 +254,9 @@ body {
   justify-content: center;
   gap: clamp(0.4rem, 2vw, 1rem);
   margin-top: 1.25rem;
+  opacity: 0; /* Hidden initially */
+  visibility: hidden; /* Hidden initially */
+  transition: opacity 1s ease-in 1s, visibility 1s ease-in 1s; /* Fade-in transition with delay */
 }
 
 .countdown-item {
@@ -546,7 +546,7 @@ section {
    VENUE
    ================================= */
 #venue {
-  background-image: url('venue-cover.webp');
+  background-image: url('venue.png');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
