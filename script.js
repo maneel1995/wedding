@@ -1,15 +1,3 @@
-// Particles
-var c = document.getElementById('particles');
-for (var i = 0; i < 30; i++) {
-  var p = document.createElement('div');
-  p.className = 'particle';
-  p.style.left = Math.random() * 100 + '%';
-  p.style.animationDelay = Math.random() * 6 + 's';
-  p.style.animationDuration = (4 + Math.random() * 4) + 's';
-  p.style.width = p.style.height = (2 + Math.random() * 4) + 'px';
-  c.appendChild(p);
-}
-
 // Nav scroll
 window.addEventListener('scroll', function() {
   document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
@@ -32,7 +20,7 @@ function startCountdown() {
   function tick() {
     var diff = target - Date.now();
     if (diff <= 0) {
-      document.getElementById('countdown').innerHTML = '<div style="font-family:Playfair Display,serif;font-size:1.5rem;color:#e8d48b;">The celebration has begun!</div>';
+      document.getElementById('countdown').innerHTML = '<div style="font-family:Lora,serif;font-size:1.5rem;color:var(--primary);">The celebration has begun!</div>';
       return;
     }
     var d = Math.floor(diff / 86400000);
@@ -95,66 +83,18 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a) {
   });
 });
 
-// Music control - Chrome-friendly autoplay
-var music = document.getElementById('bgMusic');
-var musicBtn = document.getElementById('musicToggle');
-var volumeIcon = musicBtn.querySelector('.volume-icon');
-var muteIcon = musicBtn.querySelector('.mute-icon');
-
-// Music starts muted (Chrome allows this), click to unmute
-musicBtn.addEventListener('click', function() {
-  if (music.muted) {
-    music.muted = false;
-    volumeIcon.style.display = 'block';
-    muteIcon.style.display = 'none';
-    music.play(); // Ensure it plays
-  } else {
-    music.muted = true;
-    volumeIcon.style.display = 'none';
-    muteIcon.style.display = 'block';
-  }
-});
-
-// Let's Begin button
-var letsBeginBtn = document.getElementById('letsBeginBtn');
-letsBeginBtn.addEventListener('click', function() {
-  // Fade out the button
-  letsBeginBtn.classList.add('fade-out');
-
-  // Start the mushika animation
-  var mushikaWrap = document.querySelector('.mushika-wrap');
-  mushikaWrap.classList.add('animate');
-
-  // Start other hero animations
-  var ganpatiContainer = document.querySelector('.ganpati-container');
-  ganpatiContainer.classList.add('animate');
-
-  var heroNames = document.querySelector('.hero-names');
-  heroNames.classList.add('animate');
-
-  var heroDate = document.querySelector('.hero-date');
-  heroDate.classList.add('animate');
-
-  var countdown = document.getElementById('countdown');
-  countdown.classList.add('animate');
-
-  var scrollIndicator = document.querySelector('.scroll-indicator');
-  scrollIndicator.classList.add('animate');
-
-  // Unmute and play music
-  music.muted = false;
-  music.play();
-  volumeIcon.style.display = 'block';
-  muteIcon.style.display = 'none';
-
-  // Remove the button after fade out completes
-  setTimeout(function() {
-    letsBeginBtn.style.display = 'none';
-  }, 1000);
-});
-
 // Scroll indicator click
 var scrollIndicator = document.querySelector('.scroll-indicator');
-scrollIndicator.addEventListener('click', function() {
-  document.getElementById('events').scrollIntoView({ behavior: 'smooth' });
-});
+if (scrollIndicator) {
+    scrollIndicator.addEventListener('click', function() {
+        document.getElementById('events').scrollIntoView({ behavior: 'smooth' });
+    });
+}
+
+// Autoplay music on user interaction
+document.body.addEventListener('click', function() {
+    var music = document.getElementById('bgMusic');
+    if (music.paused) {
+        music.play();
+    }
+}, { once: true });
