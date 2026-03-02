@@ -154,6 +154,8 @@ body {
   margin-bottom: 0.25rem;
   animation: ganpatiFloat 5s ease-in-out infinite;
   mix-blend-mode: multiply;
+  /* Adjust Ganesha's position to make space for Mushika */
+  margin-top: 50px; /* Example adjustment */
 }
 
 .ganesh-img {
@@ -168,37 +170,42 @@ body {
 }
 
 /* =================================
-   MUSHIKA (removed — mouse is in the Ganesha image)
-   ================================= */
-.mushika-wrap { display: none; }
-
-/* =================================
    MUSHIKA
    ================================= */
-.mushika-wrap {
+.mushika-container {
   position: absolute;
-  bottom: clamp(3rem, 8vw, 5rem);
+  bottom: 15%; /* Adjust as needed to position Mushika relative to Ganesha */
   left: 0;
   width: 100%;
-  height: 3rem;
-  pointer-events: none;
+  height: auto;
   z-index: 2;
   overflow: hidden;
 }
 
-.mushika-inner {
-  display: inline-block;
-  animation: mushikaRun 14s linear infinite;
-}
-
-.mushika-inner svg {
-  width: clamp(32px, 7vw, 48px);
+.mushika-img {
+  width: 80px; /* Adjust size as needed */
   height: auto;
+  display: block;
+  position: relative;
+  animation: mushikaScurry 8s linear infinite; /* Animation duration and type */
 }
 
-@keyframes mushikaRun {
-  0%   { transform: translateX(-80px); }
-  100% { transform: translateX(100vw); }
+@keyframes mushikaScurry {
+  0% {
+    transform: translateX(-100%) rotateY(0deg); /* Start off-screen left */
+  }
+  49% {
+    transform: translateX(120vw) rotateY(0deg); /* Move across the screen */
+  }
+  50% {
+    transform: translateX(120vw) rotateY(180deg); /* Flip horizontally at the end */
+  }
+  99% {
+    transform: translateX(-100%) rotateY(180deg); /* Move back across the screen (flipped) */
+  }
+  100% {
+    transform: translateX(-100%) rotateY(0deg); /* Reset for next loop */
+  }
 }
 
 /* =================================
