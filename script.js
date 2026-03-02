@@ -136,3 +136,37 @@ musicToggle.addEventListener('click', function() {
         });
     }
 });
+
+// Unmute music on scroll
+var musicUnmutedOnScroll = false;
+window.addEventListener('scroll', function() {
+    if (!musicUnmutedOnScroll && window.scrollY > 100 && bgMusic.muted) {
+        bgMusic.muted = false;
+        volumeIcon.style.display = 'inline-block';
+        muteIcon.style.display = 'none';
+        musicUnmutedOnScroll = true; // Ensure it only unmutes once
+        // Attempt to play if it was paused and now unmuted
+        if (bgMusic.paused) {
+            bgMusic.play().catch(function(error) {
+                console.log("Autoplay on scroll was prevented:", error);
+            });
+        }
+    }
+});
+
+// Show hero elements after Mushika animation
+var mushikaImg = document.querySelector('.mushika-img');
+var heroNames = document.querySelector('.hero-names');
+var heroDate = document.querySelector('.hero-date');
+var countdown = document.querySelector('.countdown');
+
+if (mushikaImg) {
+    mushikaImg.addEventListener('animationend', function() {
+        heroNames.style.opacity = '1';
+        heroNames.style.visibility = 'visible';
+        heroDate.style.opacity = '1';
+        heroDate.style.visibility = 'visible';
+        countdown.style.opacity = '1';
+        countdown.style.visibility = 'visible';
+    }, { once: true });
+}
