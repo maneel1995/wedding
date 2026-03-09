@@ -112,7 +112,7 @@ The code is now organized into separate files for better maintainability:
 ## Wedding Details
 
 **Date**: April 30 - May 1, 2026
-**Venue**: Aristide, Mansfield, TX
+**Venue**: Aristide, Mckinney, TX
 
 ### Events
 - **Sangeet**: Wednesday, April 30, 2026 at 6:00 PM
