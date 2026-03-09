@@ -546,7 +546,7 @@ section {
    VENUE
    ================================= */
 #venue {
-  background-image: url('venue.png');
+  background-image: url('/wedding/venue.png');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
